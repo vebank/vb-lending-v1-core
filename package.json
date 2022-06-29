@@ -1,0 +1,21 @@
+{
+  "name": "sample",
+  "version": "0.1.0",
+  "description": "Test smc sol + libs openzeppelin",
+  "main": "index.js",
+  "author": "tramvo",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.5.0",
+    "truffle": "^5.5.7"
+  },
+  "scripts":{
+    "test": "npx truffle test",
+    "develop": "nodemon -e js,sol --exec 'npx truffle test'",
+    "testnet": "npx truffle migrate --network testnet"
+  }
+
+}
