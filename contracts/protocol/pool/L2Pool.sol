@@ -7,7 +7,7 @@ import {CalldataLogic} from '../libraries/logic/CalldataLogic.sol';
 
 /**
  * @title L2Pool
- * @author Vebank
+ * @author VeBank
  * @notice Calldata optimized extension of the Pool contract allowing users to pass compact calldata representation
  * to reduce transaction costs on rollups.
  */

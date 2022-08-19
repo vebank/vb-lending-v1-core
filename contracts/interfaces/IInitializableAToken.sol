@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: AGPL-3.0
 pragma solidity 0.8.10;
 
-import {IVebankIncentivesController} from './IVebankIncentivesController.sol';
+import {IVeBankIncentivesController} from './IVeBankIncentivesController.sol';
 import {IPool} from './IPool.sol';
 
 /**
  * @title IInitializableAToken
- * @author Vebank
+ * @author VeBank
  * @notice Interface for the initialize function on AToken
  **/
 interface IInitializableAToken {
@@ -35,7 +35,7 @@ interface IInitializableAToken {
   /**
    * @notice Initializes the aToken
    * @param pool The pool contract that is initializing this contract
-   * @param treasury The address of the Vebank treasury, receiving the fees on this aToken
+   * @param treasury The address of the VeBank treasury, receiving the fees on this aToken
    * @param underlyingAsset The address of the underlying asset of this aToken (E.g. WETH for aWETH)
    * @param incentivesController The smart contract managing potential incentives distribution
    * @param aTokenDecimals The decimals of the aToken, same as the underlying asset's
@@ -47,7 +47,7 @@ interface IInitializableAToken {
     IPool pool,
     address treasury,
     address underlyingAsset,
-    IVebankIncentivesController incentivesController,
+    IVeBankIncentivesController incentivesController,
     uint8 aTokenDecimals,
     string calldata aTokenName,
     string calldata aTokenSymbol,

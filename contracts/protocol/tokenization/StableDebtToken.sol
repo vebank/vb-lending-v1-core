@@ -6,7 +6,7 @@ import {VersionedInitializable} from '../libraries/vebank-upgradeability/Version
 import {MathUtils} from '../libraries/math/MathUtils.sol';
 import {WadRayMath} from '../libraries/math/WadRayMath.sol';
 import {Errors} from '../libraries/helpers/Errors.sol';
-import {IVebankIncentivesController} from '../../interfaces/IVebankIncentivesController.sol';
+import {IVeBankIncentivesController} from '../../interfaces/IVeBankIncentivesController.sol';
 import {IInitializableDebtToken} from '../../interfaces/IInitializableDebtToken.sol';
 import {IStableDebtToken} from '../../interfaces/IStableDebtToken.sol';
 import {IPool} from '../../interfaces/IPool.sol';
@@ -17,7 +17,7 @@ import {SafeCast} from '../../dependencies/openzeppelin/contracts/SafeCast.sol';
 
 /**
  * @title StableDebtToken
- * @author Vebank
+ * @author VeBank
  * @notice Implements a stable debt token to track the borrowing positions of users
  * at stable rate mode
  * @dev Transfer and approve functionalities are disabled since its a non-transferable token
@@ -51,7 +51,7 @@ contract StableDebtToken is DebtTokenBase, IncentivizedERC20, IStableDebtToken {
   function initialize(
     IPool initializingPool,
     address underlyingAsset,
-    IVebankIncentivesController incentivesController,
+    IVeBankIncentivesController incentivesController,
     uint8 debtTokenDecimals,
     string memory debtTokenName,
     string memory debtTokenSymbol,

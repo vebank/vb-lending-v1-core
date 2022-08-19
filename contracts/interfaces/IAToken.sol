@@ -7,7 +7,7 @@ import {IInitializableAToken} from './IInitializableAToken.sol';
 
 /**
  * @title IAToken
- * @author Vebank
+ * @author VeBank
  * @notice Defines the basic interface for an AToken.
  **/
 interface IAToken is IERC20, IScaledBalanceToken, IInitializableAToken {
@@ -117,8 +117,8 @@ interface IAToken is IERC20, IScaledBalanceToken, IInitializableAToken {
   function UNDERLYING_ASSET_ADDRESS() external view returns (address);
 
   /**
-   * @notice Returns the address of the Vebank treasury, receiving the fees on this aToken.
-   * @return Address of the Vebank treasury
+   * @notice Returns the address of the VeBank treasury, receiving the fees on this aToken.
+   * @return Address of the VeBank treasury
    **/
   function RESERVE_TREASURY_ADDRESS() external view returns (address);
 

@@ -3,7 +3,7 @@ pragma solidity 0.8.10;
 
 /**
  * @title IDelegationToken
- * @author Vebank
+ * @author VeBank
  * @notice Implements an interface for tokens with delegation COMP/UNI compatible
  **/
 interface IDelegationToken {

@@ -16,7 +16,7 @@ import {SafeCast} from '../../../dependencies/openzeppelin/contracts/SafeCast.so
 
 /**
  * @title ReserveLogic library
- * @author Vebank
+ * @author VeBank
  * @notice Implements the logic to update the reserves state
  */
 library ReserveLogic {

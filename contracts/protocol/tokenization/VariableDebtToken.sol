@@ -7,7 +7,7 @@ import {VersionedInitializable} from '../libraries/vebank-upgradeability/Version
 import {WadRayMath} from '../libraries/math/WadRayMath.sol';
 import {Errors} from '../libraries/helpers/Errors.sol';
 import {IPool} from '../../interfaces/IPool.sol';
-import {IVebankIncentivesController} from '../../interfaces/IVebankIncentivesController.sol';
+import {IVeBankIncentivesController} from '../../interfaces/IVeBankIncentivesController.sol';
 import {IInitializableDebtToken} from '../../interfaces/IInitializableDebtToken.sol';
 import {IVariableDebtToken} from '../../interfaces/IVariableDebtToken.sol';
 import {EIP712Base} from './base/EIP712Base.sol';
@@ -16,7 +16,7 @@ import {ScaledBalanceTokenBase} from './base/ScaledBalanceTokenBase.sol';
 
 /**
  * @title VariableDebtToken
- * @author Vebank
+ * @author VeBank
  * @notice Implements a variable debt token to track the borrowing positions of users
  * at variable rate mode
  * @dev Transfer and approve functionalities are disabled since its a non-transferable token
@@ -42,7 +42,7 @@ contract VariableDebtToken is DebtTokenBase, ScaledBalanceTokenBase, IVariableDe
   function initialize(
     IPool initializingPool,
     address underlyingAsset,
-    IVebankIncentivesController incentivesController,
+    IVeBankIncentivesController incentivesController,
     uint8 debtTokenDecimals,
     string memory debtTokenName,
     string memory debtTokenSymbol,

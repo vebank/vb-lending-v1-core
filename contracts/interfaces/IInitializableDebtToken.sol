@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: AGPL-3.0
 pragma solidity 0.8.10;
 
-import {IVebankIncentivesController} from './IVebankIncentivesController.sol';
+import {IVeBankIncentivesController} from './IVeBankIncentivesController.sol';
 import {IPool} from './IPool.sol';
 
 /**
  * @title IInitializableDebtToken
- * @author Vebank
+ * @author VeBank
  * @notice Interface for the initialize function common between debt tokens
  **/
 interface IInitializableDebtToken {
@@ -43,7 +43,7 @@ interface IInitializableDebtToken {
   function initialize(
     IPool pool,
     address underlyingAsset,
-    IVebankIncentivesController incentivesController,
+    IVeBankIncentivesController incentivesController,
     uint8 debtTokenDecimals,
     string memory debtTokenName,
     string memory debtTokenSymbol,

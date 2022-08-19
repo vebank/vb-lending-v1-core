@@ -7,7 +7,7 @@ import {ReserveConfiguration} from './ReserveConfiguration.sol';
 
 /**
  * @title UserConfiguration library
- * @author Vebank
+ * @author VeBank
  * @notice Implements the bitmap logic to handle the user configuration
  */
 library UserConfiguration {

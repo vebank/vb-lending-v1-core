@@ -3,8 +3,8 @@ pragma solidity 0.8.10;
 
 /**
  * @title IL2Pool
- * @author Vebank
- * @notice Defines the basic extension interface for an L2 Vebank Pool.
+ * @author VeBank
+ * @notice Defines the basic extension interface for an L2 VeBank Pool.
  **/
 interface IL2Pool {
   /**

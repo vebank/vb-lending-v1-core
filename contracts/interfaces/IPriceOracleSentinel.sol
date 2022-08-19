@@ -5,7 +5,7 @@ import {IPoolAddressesProvider} from './IPoolAddressesProvider.sol';
 
 /**
  * @title IPriceOracleSentinel
- * @author Vebank
+ * @author VeBank
  * @notice Defines the basic interface for the PriceOracleSentinel
  */
 interface IPriceOracleSentinel {

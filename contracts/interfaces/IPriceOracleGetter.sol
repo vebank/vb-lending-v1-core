@@ -3,8 +3,8 @@ pragma solidity 0.8.10;
 
 /**
  * @title IPriceOracleGetter
- * @author Vebank
- * @notice Interface for the Vebank price oracle.
+ * @author VeBank
+ * @notice Interface for the VeBank price oracle.
  **/
 interface IPriceOracleGetter {
   /**

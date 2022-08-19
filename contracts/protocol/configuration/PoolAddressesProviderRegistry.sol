@@ -7,10 +7,10 @@ import {IPoolAddressesProviderRegistry} from '../../interfaces/IPoolAddressesPro
 
 /**
  * @title PoolAddressesProviderRegistry
- * @author Vebank
- * @notice Main registry of PoolAddressesProvider of Vebank markets.
- * @dev Used for indexing purposes of Vebank protocol's markets. The id assigned to a PoolAddressesProvider refers to the
- * market it is connected with, for example with `1` for the Vebank main market and `2` for the next created.
+ * @author VeBank
+ * @notice Main registry of PoolAddressesProvider of VeBank markets.
+ * @dev Used for indexing purposes of VeBank protocol's markets. The id assigned to a PoolAddressesProvider refers to the
+ * market it is connected with, for example with `1` for the VeBank main market and `2` for the next created.
  **/
 contract PoolAddressesProviderRegistry is Ownable, IPoolAddressesProviderRegistry {
   // Map of address provider ids (addressesProvider => id)

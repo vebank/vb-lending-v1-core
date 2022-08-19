@@ -17,7 +17,7 @@ import {IsolationModeLogic} from './IsolationModeLogic.sol';
 
 /**
  * @title BorrowLogic library
- * @author Vebank
+ * @author VeBank
  * @notice Implements the base logic for all the actions related to borrowing
  */
 library BorrowLogic {
@@ -55,7 +55,7 @@ library BorrowLogic {
 
   /**
    * @notice Implements the borrow feature. Borrowing allows users that provided collateral to draw liquidity from the
-   * Vebank protocol proportionally to their collateralization power. For isolated positions, it also increases the
+   * VeBank protocol proportionally to their collateralization power. For isolated positions, it also increases the
    * isolated debt.
    * @dev  Emits the `Borrow()` event
    * @param reservesData The state of all the reserves

@@ -6,7 +6,7 @@ import {IInitializableDebtToken} from './IInitializableDebtToken.sol';
 
 /**
  * @title IVariableDebtToken
- * @author Vebank
+ * @author VeBank
  * @notice Defines the basic interface for a variable debt token.
  **/
 interface IVariableDebtToken is IScaledBalanceToken, IInitializableDebtToken {

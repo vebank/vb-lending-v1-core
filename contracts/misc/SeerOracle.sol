@@ -16,7 +16,7 @@ import {IVeBankOracle} from '../interfaces/IVeBankOracle.sol';
  * - If the returned price by a Chainlink aggregator is <= 0, the call is forwarded to a fallback oracle
  * - Owned by the VeBank governance
  */
-contract VeBankOracle is IVeBankOracle {
+contract SeerOracle is IVeBankOracle {
   IPoolAddressesProvider public immutable ADDRESSES_PROVIDER;
 
   // Map of asset price sources (asset => priceSource)
@@ -38,8 +38,6 @@ contract VeBankOracle is IVeBankOracle {
    * @notice Constructor
    * @param provider The address of the new PoolAddressesProvider
    * @param assets The addresses of the assets
-   * @param sources The address of the source of each asset
-   * @param fallbackOracle The address of the fallback oracle to use if the data of an
    *        aggregator is not consistent
    * @param baseCurrency The base currency used for the price quotes. If USD is used, base currency is 0x0
    * @param baseCurrencyUnit The unit of the base currency
@@ -47,14 +45,14 @@ contract VeBankOracle is IVeBankOracle {
   constructor(
     IPoolAddressesProvider provider,
     address[] memory assets,
-    address[] memory sources,
-    address fallbackOracle,
+    //address[] memory sources,
+    //address fallbackOracle,
     address baseCurrency,
     uint256 baseCurrencyUnit
   ) {
     ADDRESSES_PROVIDER = provider;
-    _setFallbackOracle(fallbackOracle);
-    _setAssetsSources(assets, sources);
+    // _setFallbackOracle(fallbackOracle);
+    // _setAssetsSources(assets, sources);
     BASE_CURRENCY = baseCurrency;
     BASE_CURRENCY_UNIT = baseCurrencyUnit;
     emit BaseCurrencySet(baseCurrency, baseCurrencyUnit);
@@ -102,6 +100,8 @@ contract VeBankOracle is IVeBankOracle {
 
   /// @inheritdoc IPriceOracleGetter
   function getAssetPrice(address asset) public view override returns (uint256) {
+    // TODO check price
+    return BASE_CURRENCY_UNIT;
     AggregatorInterface source = assetsSources[asset];
 
     if (asset == BASE_CURRENCY) {

@@ -11,11 +11,11 @@ import {Errors} from '../libraries/helpers/Errors.sol';
 
 /**
  * @title DefaultReserveInterestRateStrategy contract
- * @author Vebank
+ * @author VeBank
  * @notice Implements the calculation of the interest rates depending on the reserve state
  * @dev The model of interest rate is based on 2 slopes, one before the `OPTIMAL_USAGE_RATIO`
  * point of usage and another from that one to 100%.
- * - An instance of this same contract, can't be used across different Vebank markets, due to the caching
+ * - An instance of this same contract, can't be used across different VeBank markets, due to the caching
  *   of the PoolAddressesProvider
  **/
 contract DefaultReserveInterestRateStrategy is IReserveInterestRateStrategy {

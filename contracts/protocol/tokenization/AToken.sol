@@ -9,16 +9,16 @@ import {Errors} from '../libraries/helpers/Errors.sol';
 import {WadRayMath} from '../libraries/math/WadRayMath.sol';
 import {IPool} from '../../interfaces/IPool.sol';
 import {IAToken} from '../../interfaces/IAToken.sol';
-import {IVebankIncentivesController} from '../../interfaces/IVebankIncentivesController.sol';
+import {IVeBankIncentivesController} from '../../interfaces/IVeBankIncentivesController.sol';
 import {IInitializableAToken} from '../../interfaces/IInitializableAToken.sol';
 import {ScaledBalanceTokenBase} from './base/ScaledBalanceTokenBase.sol';
 import {IncentivizedERC20} from './base/IncentivizedERC20.sol';
 import {EIP712Base} from './base/EIP712Base.sol';
 
 /**
- * @title Vebank ERC20 AToken
- * @author Vebank
- * @notice Implementation of the interest bearing token for the Vebank protocol
+ * @title VeBank ERC20 AToken
+ * @author VeBank
+ * @notice Implementation of the interest bearing token for the VeBank protocol
  */
 contract AToken is VersionedInitializable, ScaledBalanceTokenBase, EIP712Base, IAToken {
   using WadRayMath for uint256;
@@ -54,7 +54,7 @@ contract AToken is VersionedInitializable, ScaledBalanceTokenBase, EIP712Base, I
     IPool initializingPool,
     address treasury,
     address underlyingAsset,
-    IVebankIncentivesController incentivesController,
+    IVeBankIncentivesController incentivesController,
     uint8 aTokenDecimals,
     string calldata aTokenName,
     string calldata aTokenSymbol,

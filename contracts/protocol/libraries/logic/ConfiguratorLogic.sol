@@ -4,7 +4,7 @@ pragma solidity 0.8.10;
 import {IPool} from '../../../interfaces/IPool.sol';
 import {IInitializableAToken} from '../../../interfaces/IInitializableAToken.sol';
 import {IInitializableDebtToken} from '../../../interfaces/IInitializableDebtToken.sol';
-import {IVebankIncentivesController} from '../../../interfaces/IVebankIncentivesController.sol';
+import {IVeBankIncentivesController} from '../../../interfaces/IVeBankIncentivesController.sol';
 import {InitializableImmutableAdminUpgradeabilityProxy} from '../vebank-upgradeability/InitializableImmutableAdminUpgradeabilityProxy.sol';
 import {ReserveConfiguration} from '../configuration/ReserveConfiguration.sol';
 import {DataTypes} from '../types/DataTypes.sol';
@@ -12,7 +12,7 @@ import {ConfiguratorInputTypes} from '../types/ConfiguratorInputTypes.sol';
 
 /**
  * @title ConfiguratorLogic library
- * @author Vebank
+ * @author VeBank
  * @notice Implements the functions to initialize reserves and update aTokens and debtTokens
  */
 library ConfiguratorLogic {
@@ -96,9 +96,12 @@ library ConfiguratorLogic {
 
     pool.initReserve(
       input.underlyingAsset,
-      aTokenProxyAddress,
-      stableDebtTokenProxyAddress,
-      variableDebtTokenProxyAddress,
+      // aTokenProxyAddress,
+      // stableDebtTokenProxyAddress,
+      // variableDebtTokenProxyAddress,
+      input.aTokenImpl,
+      input.stableDebtTokenImpl,
+      input.variableDebtTokenImpl,
       input.interestRateStrategyAddress
     );
 

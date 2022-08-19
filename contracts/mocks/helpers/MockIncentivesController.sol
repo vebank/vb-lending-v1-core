@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity 0.8.10;
 
-import {IVebankIncentivesController} from '../../interfaces/IVebankIncentivesController.sol';
+import {IVeBankIncentivesController} from '../../interfaces/IVeBankIncentivesController.sol';
 
-contract MockIncentivesController is IVebankIncentivesController {
+contract MockIncentivesController is IVeBankIncentivesController {
   function getAssetData(address)
     external
     pure

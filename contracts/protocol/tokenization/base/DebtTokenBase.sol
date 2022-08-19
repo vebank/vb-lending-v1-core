@@ -9,7 +9,7 @@ import {EIP712Base} from './EIP712Base.sol';
 
 /**
  * @title DebtTokenBase
- * @author Vebank
+ * @author VeBank
  * @notice Base contract for different types of debt tokens, like StableDebtToken or VariableDebtToken
  */
 abstract contract DebtTokenBase is

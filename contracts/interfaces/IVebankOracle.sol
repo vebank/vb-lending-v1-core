@@ -5,11 +5,11 @@ import {IPriceOracleGetter} from './IPriceOracleGetter.sol';
 import {IPoolAddressesProvider} from './IPoolAddressesProvider.sol';
 
 /**
- * @title IVebankOracle
- * @author Vebank
- * @notice Defines the basic interface for the Vebank Oracle
+ * @title IVeBankOracle
+ * @author VeBank
+ * @notice Defines the basic interface for the VeBank Oracle
  */
-interface IVebankOracle is IPriceOracleGetter {
+interface IVeBankOracle is IPriceOracleGetter {
   /**
    * @dev Emitted after the base currency is set
    * @param baseCurrency The base currency of used for price quotes

@@ -7,7 +7,7 @@ import {BaseImmutableAdminUpgradeabilityProxy} from './BaseImmutableAdminUpgrade
 
 /**
  * @title InitializableAdminUpgradeabilityProxy
- * @author Vebank
+ * @author VeBank
  * @dev Extends BaseAdminUpgradeabilityProxy with an initializer function
  */
 contract InitializableImmutableAdminUpgradeabilityProxy is
