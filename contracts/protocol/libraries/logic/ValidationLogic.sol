@@ -22,7 +22,7 @@ import {SafeCast} from '../../../dependencies/openzeppelin/contracts/SafeCast.so
 
 /**
  * @title ReserveLogic library
- * @author Vebank
+ * @author VeBank
  * @notice Implements functions to validate the different actions of the protocol
  */
 library ValidationLogic {
@@ -66,7 +66,6 @@ library ValidationLogic {
     require(isActive, Errors.RESERVE_INACTIVE);
     require(!isPaused, Errors.RESERVE_PAUSED);
     require(!isFrozen, Errors.RESERVE_FROZEN);
-
     uint256 supplyCap = reserveCache.reserveConfiguration.getSupplyCap();
     require(
       supplyCap == 0 ||
@@ -231,7 +230,6 @@ library ValidationLogic {
 
     require(vars.userCollateralInBaseCurrency != 0, Errors.COLLATERAL_BALANCE_IS_ZERO);
     require(vars.currentLtv != 0, Errors.LTV_VALIDATION_FAILED);
-
     require(
       vars.healthFactor > HEALTH_FACTOR_LIQUIDATION_THRESHOLD,
       Errors.HEALTH_FACTOR_LOWER_THAN_LIQUIDATION_THRESHOLD
@@ -254,7 +252,6 @@ library ValidationLogic {
       vars.collateralNeededInBaseCurrency <= vars.userCollateralInBaseCurrency,
       Errors.COLLATERAL_CANNOT_COVER_NEW_BORROW
     );
-
     /**
      * Following conditions need to be met if the user is borrowing at a stable rate:
      * 1. Reserve must be enabled for stable rate borrowing

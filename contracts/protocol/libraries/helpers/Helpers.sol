@@ -6,7 +6,7 @@ import {DataTypes} from '../types/DataTypes.sol';
 
 /**
  * @title Helpers library
- * @author Vebank
+ * @author VeBank
  */
 library Helpers {
   /**

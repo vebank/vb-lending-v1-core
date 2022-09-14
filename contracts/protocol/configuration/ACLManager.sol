@@ -8,7 +8,7 @@ import {Errors} from '../libraries/helpers/Errors.sol';
 
 /**
  * @title ACLManager
- * @author Vebank
+ * @author VeBank
  * @notice Access Control List Manager. Main registry of system roles and permissions.
  */
 contract ACLManager is AccessControl, IACLManager {

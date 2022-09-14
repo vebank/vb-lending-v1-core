@@ -5,7 +5,7 @@ import {ConfiguratorInputTypes} from '../protocol/libraries/types/ConfiguratorIn
 
 /**
  * @title IPoolConfigurator
- * @author Vebank
+ * @author VeBank
  * @notice Defines the basic interface for a Pool configurator.
  **/
 interface IPoolConfigurator {

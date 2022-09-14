@@ -1,22 +1,22 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity 0.8.10;
 
-import {AggregatorInterface} from '../dependencies/chainlink/AggregatorInterface.sol';
+import {AggregatorInterface} from '../dependencies/seer/AggregatorInterface.sol';
 import {Errors} from '../protocol/libraries/helpers/Errors.sol';
 import {IACLManager} from '../interfaces/IACLManager.sol';
 import {IPoolAddressesProvider} from '../interfaces/IPoolAddressesProvider.sol';
 import {IPriceOracleGetter} from '../interfaces/IPriceOracleGetter.sol';
-import {IVebankOracle} from '../interfaces/IVebankOracle.sol';
+import {IVeBankOracle} from '../interfaces/IVeBankOracle.sol';
 
 /**
- * @title VebankOracle
- * @author Vebank
+ * @title VeBankOracle
+ * @author VeBank
  * @notice Contract to get asset prices, manage price sources and update the fallback oracle
- * - Use of Chainlink Aggregators as first source of price
- * - If the returned price by a Chainlink aggregator is <= 0, the call is forwarded to a fallback oracle
- * - Owned by the Vebank governance
+ * - Use of Seer Aggregators as first source of price
+ * - If the returned price by a Seer aggregator is <= 0, the call is forwarded to a fallback oracle
+ * - Owned by the VeBank governance
  */
-contract VebankOracle is IVebankOracle {
+contract VeBankOracle is IVeBankOracle {
   IPoolAddressesProvider public immutable ADDRESSES_PROVIDER;
 
   // Map of asset price sources (asset => priceSource)
@@ -60,7 +60,7 @@ contract VebankOracle is IVebankOracle {
     emit BaseCurrencySet(baseCurrency, baseCurrencyUnit);
   }
 
-  /// @inheritdoc IVebankOracle
+  /// @inheritdoc IVeBankOracle
   function setAssetSources(address[] calldata assets, address[] calldata sources)
     external
     override
@@ -69,7 +69,7 @@ contract VebankOracle is IVebankOracle {
     _setAssetsSources(assets, sources);
   }
 
-  /// @inheritdoc IVebankOracle
+  /// @inheritdoc IVeBankOracle
   function setFallbackOracle(address fallbackOracle)
     external
     override
@@ -118,7 +118,7 @@ contract VebankOracle is IVebankOracle {
     }
   }
 
-  /// @inheritdoc IVebankOracle
+  /// @inheritdoc IVeBankOracle
   function getAssetsPrices(address[] calldata assets)
     external
     view
@@ -132,12 +132,12 @@ contract VebankOracle is IVebankOracle {
     return prices;
   }
 
-  /// @inheritdoc IVebankOracle
+  /// @inheritdoc IVeBankOracle
   function getSourceOfAsset(address asset) external view override returns (address) {
     return address(assetsSources[asset]);
   }
 
-  /// @inheritdoc IVebankOracle
+  /// @inheritdoc IVeBankOracle
   function getFallbackOracle() external view returns (address) {
     return address(_fallbackOracle);
   }

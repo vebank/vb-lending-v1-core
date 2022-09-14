@@ -3,8 +3,8 @@ pragma solidity 0.8.10;
 
 /**
  * @title Errors library
- * @author Vebank
- * @notice Defines the error messages emitted by the different contracts of the Vebank protocol
+ * @author VeBank
+ * @notice Defines the error messages emitted by the different contracts of the VeBank protocol
  */
 library Errors {
   string public constant CALLER_NOT_POOL_ADMIN = '1'; // 'The caller of the function is not a pool admin'

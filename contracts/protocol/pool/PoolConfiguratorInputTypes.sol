@@ -13,8 +13,8 @@ import {IPoolDataProvider} from '../../interfaces/IPoolDataProvider.sol';
 
 /**
  * @title PoolConfigurator
- * @author Vebank
- * @dev Implements the configuration methods for the Vebank protocol
+ * @author VeBank
+ * @dev Implements the configuration methods for the VeBank protocol
  **/
 contract PoolConfiguratorInputTypes {
 
@@ -47,6 +47,9 @@ contract PoolConfiguratorInputTypes {
 
   Top public top;
   Remain public remain;
+  
+  Top public top2;
+  Remain public remain2;
 
   function getTop() external view returns (Top memory) {
     return top;
@@ -54,6 +57,14 @@ contract PoolConfiguratorInputTypes {
 
   function getRemain() external view returns (Remain memory) {
     return remain;
+  }
+
+  function getTop2() external view returns (Top memory) {
+    return top2;
+  }
+
+  function getRemain2() external view returns (Remain memory) {
+    return remain2;
   }
 
   function getInitReserveInput() external view returns (ConfiguratorInputTypes.InitReserveInput[] memory) {
@@ -81,7 +92,26 @@ contract PoolConfiguratorInputTypes {
     // remain.params = params;
   }
 
+  function createTop2(address aTokenImpl, address stableDebtTokenImpl, address variableDebtTokenImpl, uint8 underlyingAssetDecimals, address interestRateStrategyAddress, address underlyingAsset, address treasury, address incentivesController) external {
+    top.aTokenImpl = aTokenImpl;
+    top.stableDebtTokenImpl = stableDebtTokenImpl;
+    top.variableDebtTokenImpl = variableDebtTokenImpl;
+    top.underlyingAssetDecimals = underlyingAssetDecimals;
+    top.interestRateStrategyAddress = interestRateStrategyAddress;
+    top.underlyingAsset = underlyingAsset;
+    top.treasury = treasury;
+    top.incentivesController = incentivesController;
+  }
 
+  function createRemain2(string calldata aTokenName, string calldata aTokenSymbol, string calldata variableDebtTokenName, string calldata variableDebtTokenSymbol, string calldata stableDebtTokenName, string calldata stableDebtTokenSymbol) external {
+    remain.aTokenName = aTokenName;
+    remain.aTokenSymbol = aTokenSymbol;
+    remain.variableDebtTokenName = variableDebtTokenName;
+    remain.variableDebtTokenSymbol = variableDebtTokenSymbol;
+    remain.stableDebtTokenName = stableDebtTokenName;
+    remain.stableDebtTokenSymbol = stableDebtTokenSymbol;
+    // remain.params = params;
+  }
   function createConfiguratorInputTypes() external {
       ConfiguratorInputTypes.InitReserveInput memory data;
       data.aTokenImpl = top.aTokenImpl;
@@ -104,11 +134,42 @@ contract PoolConfiguratorInputTypes {
     initReserveInput.push(data);
 
 
+
+
+  }
+
+  function createConfiguratorInputTypes2() external {
+      ConfiguratorInputTypes.InitReserveInput memory data;
+      data.aTokenImpl = top2.aTokenImpl;
+      data.stableDebtTokenImpl = top2.stableDebtTokenImpl;
+      data.variableDebtTokenImpl = top2.variableDebtTokenImpl;
+      data.underlyingAssetDecimals = top2.underlyingAssetDecimals;
+      data.interestRateStrategyAddress = top2.interestRateStrategyAddress;
+      data.underlyingAsset = top2.underlyingAsset;
+      data.treasury = top2.treasury;
+      data.incentivesController = top2.incentivesController;
+
+      data.aTokenName = remain2.aTokenName;
+      data.aTokenSymbol = remain2.aTokenSymbol;
+      data.variableDebtTokenName = remain2.variableDebtTokenName;
+      data.variableDebtTokenSymbol = remain2.variableDebtTokenSymbol;
+      data.stableDebtTokenName = remain2.stableDebtTokenName;
+      data.stableDebtTokenSymbol = remain2.stableDebtTokenSymbol;
+    //data.params = 0x0;
+
+    initReserveInput.push(data);
+
+
+
+
   }
 
   function initReserves(ConfiguratorInputTypes.InitReserveInput[] calldata input)
-    external {
-
-    }
+    external
+    
+  
+  {
+   
+  }
 
 }

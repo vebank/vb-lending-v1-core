@@ -3,7 +3,7 @@ pragma solidity 0.8.10;
 
 /**
  * @title EIP712Base
- * @author Vebank
+ * @author VeBank
  * @notice Base contract implementation of EIP712.
  */
 abstract contract EIP712Base {

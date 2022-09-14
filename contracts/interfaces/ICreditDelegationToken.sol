@@ -3,7 +3,7 @@ pragma solidity 0.8.10;
 
 /**
  * @title ICreditDelegationToken
- * @author Vebank
+ * @author VeBank
  * @notice Defines the basic interface for a token supporting credit delegation.
  **/
 interface ICreditDelegationToken {

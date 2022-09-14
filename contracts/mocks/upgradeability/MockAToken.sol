@@ -3,7 +3,7 @@ pragma solidity 0.8.10;
 
 import {AToken} from '../../protocol/tokenization/AToken.sol';
 import {IPool} from '../../interfaces/IPool.sol';
-import {IVebankIncentivesController} from '../../interfaces/IVebankIncentivesController.sol';
+import {IVeBankIncentivesController} from '../../interfaces/IVeBankIncentivesController.sol';
 
 contract MockAToken is AToken {
   constructor(IPool pool) AToken(pool) {}

@@ -15,7 +15,7 @@ import {GenericLogic} from './GenericLogic.sol';
 
 /**
  * @title PoolLogic library
- * @author Vebank
+ * @author VeBank
  * @notice Implements the logic for Pool specific functions
  */
 library PoolLogic {

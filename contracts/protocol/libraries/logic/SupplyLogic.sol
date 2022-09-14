@@ -15,7 +15,7 @@ import {ReserveConfiguration} from '../configuration/ReserveConfiguration.sol';
 
 /**
  * @title SupplyLogic library
- * @author Vebank
+ * @author VeBank
  * @notice Implements the base logic for supply/withdraw
  */
 library SupplyLogic {
@@ -40,7 +40,7 @@ library SupplyLogic {
   );
 
   /**
-   * @notice Implements the supply feature. Through `supply()`, users supply assets to the Vebank protocol.
+   * @notice Implements the supply feature. Through `supply()`, users supply assets to the VeBank protocol.
    * @dev Emits the `Supply()` event.
    * @dev In the first supply action, `ReserveUsedAsCollateralEnabled()` is emitted, if the asset can be enabled as
    * collateral.
@@ -65,7 +65,6 @@ library SupplyLogic {
     reserve.updateInterestRates(reserveCache, params.asset, params.amount, 0);
 
     IERC20(params.asset).safeTransferFrom(msg.sender, reserveCache.aTokenAddress, params.amount);
-
     bool isFirstSupply = IAToken(reserveCache.aTokenAddress).mint(
       msg.sender,
       params.onBehalfOf,
@@ -87,12 +86,13 @@ library SupplyLogic {
       }
     }
 
-    emit Supply(params.asset, msg.sender, params.onBehalfOf, params.amount, params.referralCode);
+      emit Supply(params.asset, msg.sender, params.onBehalfOf, params.amount, params.referralCode);
+    
   }
 
   /**
    * @notice Implements the withdraw feature. Through `withdraw()`, users redeem their aTokens for the underlying asset
-   * previously supplied in the Vebank protocol.
+   * previously supplied in the VeBank protocol.
    * @dev Emits the `Withdraw()` event.
    * @dev If the user withdraws everything, `ReserveUsedAsCollateralDisabled()` is emitted.
    * @param reservesData The state of all the reserves

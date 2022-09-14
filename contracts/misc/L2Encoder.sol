@@ -7,7 +7,7 @@ import {DataTypes} from '../protocol/libraries/types/DataTypes.sol';
 
 /**
  * @title L2Encoder
- * @author Vebank
+ * @author VeBank
  * @notice Helper contract to encode calldata, used to optimize calldata size in L2Pool for transaction cost reduction
  * only indented to help generate calldata for uses/frontends.
  */

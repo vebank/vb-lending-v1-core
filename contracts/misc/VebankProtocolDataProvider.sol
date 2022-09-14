@@ -13,11 +13,11 @@ import {IPool} from '../interfaces/IPool.sol';
 import {IPoolDataProvider} from '../interfaces/IPoolDataProvider.sol';
 
 /**
- * @title VebankProtocolDataProvider
- * @author Vebank
+ * @title VeBankProtocolDataProvider
+ * @author VeBank
  * @notice Peripheral contract to collect and pre-process information from the Pool.
  */
-contract VebankProtocolDataProvider is IPoolDataProvider {
+contract VeBankProtocolDataProvider is IPoolDataProvider {
   using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
   using UserConfiguration for DataTypes.UserConfigurationMap;
   using WadRayMath for uint256;

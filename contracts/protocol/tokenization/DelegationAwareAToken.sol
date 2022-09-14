@@ -7,7 +7,7 @@ import {AToken} from './AToken.sol';
 
 /**
  * @title DelegationAwareAToken
- * @author Vebank
+ * @author VeBank
  * @notice AToken enabled to delegate voting power of the underlying asset to a different address
  * @dev The underlying asset needs to be compatible with the COMP delegation interface
  */

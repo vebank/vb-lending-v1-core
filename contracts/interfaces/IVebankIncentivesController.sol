@@ -2,11 +2,11 @@
 pragma solidity 0.8.10;
 
 /**
- * @title IVebankIncentivesController
- * @author Vebank
- * @notice Defines the basic interface for an Vebank Incentives Controller.
+ * @title IVeBankIncentivesController
+ * @author VeBank
+ * @notice Defines the basic interface for an VeBank Incentives Controller.
  **/
-interface IVebankIncentivesController {
+interface IVeBankIncentivesController {
   /**
    * @dev Emitted during `handleAction`, `claimRewards` and `claimRewardsOnBehalf`
    * @param user The user that accrued rewards

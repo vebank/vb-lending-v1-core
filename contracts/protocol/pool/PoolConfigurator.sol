@@ -16,8 +16,8 @@ import {IPoolDataProvider} from '../../interfaces/IPoolDataProvider.sol';
 
 /**
  * @title PoolConfigurator
- * @author Vebank
- * @dev Implements the configuration methods for the Vebank protocol
+ * @author VeBank
+ * @dev Implements the configuration methods for the VeBank protocol
  **/
 contract PoolConfigurator is VersionedInitializable, IPoolConfigurator {
   using PercentageMath for uint256;

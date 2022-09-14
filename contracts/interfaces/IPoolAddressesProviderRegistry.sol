@@ -3,8 +3,8 @@ pragma solidity 0.8.10;
 
 /**
  * @title IPoolAddressesProviderRegistry
- * @author Vebank
- * @notice Defines the basic interface for an Vebank Pool Addresses Provider Registry.
+ * @author VeBank
+ * @notice Defines the basic interface for an VeBank Pool Addresses Provider Registry.
  **/
 interface IPoolAddressesProviderRegistry {
   /**

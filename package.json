@@ -1,7 +1,7 @@
 {
-  "name": "sample",
-  "version": "0.1.0",
-  "description": "Test smc sol + libs openzeppelin",
+  "name": "vebank-lending-core",
+  "version": "1.0.0",
+  "description": "Vebank Lending Core Smart Contracts V1",
   "main": "index.js",
   "author": "tramvo",
   "license": "MIT",
@@ -10,12 +10,13 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.5.0",
+    "@truffle/debugger": "^10.0.11",
+    "dotenv": "^16.0.0",
     "truffle": "^5.5.7"
   },
-  "scripts":{
+  "scripts": {
     "test": "npx truffle test",
     "develop": "nodemon -e js,sol --exec 'npx truffle test'",
     "testnet": "npx truffle migrate --network testnet"
   }
-
 }

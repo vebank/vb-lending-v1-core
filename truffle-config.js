@@ -88,10 +88,30 @@ module.exports = {
       skipDryRun: true,
       production: true,
       gasPrice: 128,
-      timeoutBlocks: 200
+      timeoutBlocks: 200,
+      from: '0xF750f37fb2948e235DE54975D3b6472643EE6c9B',
+    },
+    ganache2: {
+      host: '127.0.0.1', // Localhost (default: none)
+      port: 7545, // Standard Ethereum port (default: none)
+      network_id: '*', // Any network (default: none)
+      skipDryRun: true,
+      production: true,
+      gasPrice: 128,
+      timeoutBlocks: 200,
+      from: '0xeC310e7cC338f9087CaAcf291ba5023B3326626F'
+    },
+    ganache3: {
+      host: '127.0.0.1', // Localhost (default: none)
+      port: 7545, // Standard Ethereum port (default: none)
+      network_id: '*', // Any network (default: none)
+      skipDryRun: true,
+      production: true,
+      gasPrice: 128,
+      timeoutBlocks: 200,
+      from: '0x85Da5F1d3C79Ad7f8736d230bA5472B9fF0dD3f5'
     }
   },
-
   // Set default mocha options here, use special reporters etc.
   mocha: {
     // timeout: 100000

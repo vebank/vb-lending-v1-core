@@ -8,7 +8,7 @@ import {SafeCast} from '../../../dependencies/openzeppelin/contracts/SafeCast.so
 
 /**
  * @title IsolationModeLogic library
- * @author Vebank
+ * @author VeBank
  * @notice Implements the base logic for handling repayments for assets borrowed in isolation mode
  */
 library IsolationModeLogic {

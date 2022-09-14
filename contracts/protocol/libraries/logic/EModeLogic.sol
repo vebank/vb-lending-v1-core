@@ -14,7 +14,7 @@ import {ReserveLogic} from './ReserveLogic.sol';
 
 /**
  * @title EModeLogic library
- * @author Vebank
+ * @author VeBank
  * @notice Implements the base logic for all the actions related to the eMode
  */
 library EModeLogic {
