@@ -2,8 +2,8 @@
 pragma solidity 0.8.10;
 
 import {Context} from '../../../dependencies/openzeppelin/contracts/Context.sol';
-import {IERC20} from '../../../dependencies/openzeppelin/contracts/IERC20.sol';
-import {IERC20Detailed} from '../../../dependencies/openzeppelin/contracts/IERC20Detailed.sol';
+import {IVIP180} from '../../../dependencies/openzeppelin/contracts/IVIP180.sol';
+import {IVIP180Detailed} from '../../../dependencies/openzeppelin/contracts/IVIP180Detailed.sol';
 import {SafeCast} from '../../../dependencies/openzeppelin/contracts/SafeCast.sol';
 import {WadRayMath} from '../../libraries/math/WadRayMath.sol';
 import {Errors} from '../../libraries/helpers/Errors.sol';
@@ -13,11 +13,11 @@ import {IPool} from '../../../interfaces/IPool.sol';
 import {IACLManager} from '../../../interfaces/IACLManager.sol';
 
 /**
- * @title IncentivizedERC20
- * @author VeBank, inspired by the Openzeppelin ERC20 implementation
- * @notice Basic ERC20 implementation
+ * @title IncentivizedVIP180
+ * @author VeBank, inspired by the Openzeppelin VIP180 implementation
+ * @notice Basic VIP180 implementation
  **/
-abstract contract IncentivizedERC20 is Context, IERC20Detailed {
+abstract contract IncentivizedVIP180 is Context, IVIP180Detailed {
   using WadRayMath for uint256;
   using SafeCast for uint256;
 
@@ -82,27 +82,27 @@ abstract contract IncentivizedERC20 is Context, IERC20Detailed {
     POOL = pool;
   }
 
-  /// @inheritdoc IERC20Detailed
+  /// @inheritdoc IVIP180Detailed
   function name() public view override returns (string memory) {
     return _name;
   }
 
-  /// @inheritdoc IERC20Detailed
+  /// @inheritdoc IVIP180Detailed
   function symbol() external view override returns (string memory) {
     return _symbol;
   }
 
-  /// @inheritdoc IERC20Detailed
+  /// @inheritdoc IVIP180Detailed
   function decimals() external view override returns (uint8) {
     return _decimals;
   }
 
-  /// @inheritdoc IERC20
+  /// @inheritdoc IVIP180
   function totalSupply() public view virtual override returns (uint256) {
     return _totalSupply;
   }
 
-  /// @inheritdoc IERC20
+  /// @inheritdoc IVIP180
   function balanceOf(address account) public view virtual override returns (uint256) {
     return _userState[account].balance;
   }
@@ -123,14 +123,14 @@ abstract contract IncentivizedERC20 is Context, IERC20Detailed {
     _incentivesController = controller;
   }
 
-  /// @inheritdoc IERC20
+  /// @inheritdoc IVIP180
   function transfer(address recipient, uint256 amount) external virtual override returns (bool) {
     uint128 castAmount = amount.toUint128();
     _transfer(_msgSender(), recipient, castAmount);
     return true;
   }
 
-  /// @inheritdoc IERC20
+  /// @inheritdoc IVIP180
   function allowance(address owner, address spender)
     external
     view
@@ -141,13 +141,13 @@ abstract contract IncentivizedERC20 is Context, IERC20Detailed {
     return _allowances[owner][spender];
   }
 
-  /// @inheritdoc IERC20
+  /// @inheritdoc IVIP180
   function approve(address spender, uint256 amount) external virtual override returns (bool) {
     _approve(_msgSender(), spender, amount);
     return true;
   }
 
-  /// @inheritdoc IERC20
+  /// @inheritdoc IVIP180
   function transferFrom(
     address sender,
     address recipient,

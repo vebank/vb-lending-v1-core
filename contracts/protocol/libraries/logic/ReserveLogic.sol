@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity 0.8.10;
 
-import {IERC20} from '../../../dependencies/openzeppelin/contracts/IERC20.sol';
-import {GPv2SafeERC20} from '../../../dependencies/gnosis/contracts/GPv2SafeERC20.sol';
+import {IVIP180} from '../../../dependencies/openzeppelin/contracts/IVIP180.sol';
+import {GPv2SafeVIP180} from '../../../dependencies/gnosis/contracts/GPv2SafeVIP180.sol';
 import {IStableDebtToken} from '../../../interfaces/IStableDebtToken.sol';
 import {IVariableDebtToken} from '../../../interfaces/IVariableDebtToken.sol';
 import {IReserveInterestRateStrategy} from '../../../interfaces/IReserveInterestRateStrategy.sol';
@@ -23,7 +23,7 @@ library ReserveLogic {
   using WadRayMath for uint256;
   using PercentageMath for uint256;
   using SafeCast for uint256;
-  using GPv2SafeERC20 for IERC20;
+  using GPv2SafeVIP180 for IVIP180;
   using ReserveLogic for DataTypes.ReserveData;
   using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
 

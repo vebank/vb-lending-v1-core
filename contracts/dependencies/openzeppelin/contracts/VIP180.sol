@@ -3,24 +3,24 @@
 pragma solidity 0.8.10;
 
 import './Context.sol';
-import './IERC20.sol';
+import './IVIP180.sol';
 import './SafeMath.sol';
 import './Address.sol';
 
 /**
- * @dev Implementation of the {IERC20} interface.
+ * @dev Implementation of the {IVIP180} interface.
  *
  * This implementation is agnostic to the way tokens are created. This means
  * that a supply mechanism has to be added in a derived contract using {_mint}.
- * For a generic mechanism see {ERC20PresetMinterPauser}.
+ * For a generic mechanism see {VIP180PresetMinterPauser}.
  *
  * TIP: For a detailed writeup see our guide
- * https://forum.zeppelin.solutions/t/how-to-implement-erc20-supply-mechanisms/226[How
+ * https://forum.zeppelin.solutions/t/how-to-implement-VIP180-supply-mechanisms/226[How
  * to implement supply mechanisms].
  *
  * We have followed general OpenZeppelin guidelines: functions revert instead
  * of returning `false` on failure. This behavior is nonetheless conventional
- * and does not conflict with the expectations of ERC20 applications.
+ * and does not conflict with the expectations of VIP180 applications.
  *
  * Additionally, an {Approval} event is emitted on calls to {transferFrom}.
  * This allows applications to reconstruct the allowance for all accounts just
@@ -29,9 +29,9 @@ import './Address.sol';
  *
  * Finally, the non-standard {decreaseAllowance} and {increaseAllowance}
  * functions have been added to mitigate the well-known issues around setting
- * allowances. See {IERC20-approve}.
+ * allowances. See {IVIP180-approve}.
  */
-contract ERC20 is Context, IERC20 {
+contract VIP180 is Context, IVIP180 {
   using SafeMath for uint256;
   using Address for address;
 
@@ -81,33 +81,33 @@ contract ERC20 is Context, IERC20 {
    * be displayed to a user as `5,05` (`505 / 10 ** 2`).
    *
    * Tokens usually opt for a value of 18, imitating the relationship between
-   * Ether and Wei. This is the value {ERC20} uses, unless {_setupDecimals} is
+   * Ether and Wei. This is the value {VIP180} uses, unless {_setupDecimals} is
    * called.
    *
    * NOTE: This information is only used for _display_ purposes: it in
    * no way affects any of the arithmetic of the contract, including
-   * {IERC20-balanceOf} and {IERC20-transfer}.
+   * {IVIP180-balanceOf} and {IVIP180-transfer}.
    */
   function decimals() public view returns (uint8) {
     return _decimals;
   }
 
   /**
-   * @dev See {IERC20-totalSupply}.
+   * @dev See {IVIP180-totalSupply}.
    */
   function totalSupply() public view override returns (uint256) {
     return _totalSupply;
   }
 
   /**
-   * @dev See {IERC20-balanceOf}.
+   * @dev See {IVIP180-balanceOf}.
    */
   function balanceOf(address account) public view override returns (uint256) {
     return _balances[account];
   }
 
   /**
-   * @dev See {IERC20-transfer}.
+   * @dev See {IVIP180-transfer}.
    *
    * Requirements:
    *
@@ -120,7 +120,7 @@ contract ERC20 is Context, IERC20 {
   }
 
   /**
-   * @dev See {IERC20-allowance}.
+   * @dev See {IVIP180-allowance}.
    */
   function allowance(address owner, address spender)
     public
@@ -133,7 +133,7 @@ contract ERC20 is Context, IERC20 {
   }
 
   /**
-   * @dev See {IERC20-approve}.
+   * @dev See {IVIP180-approve}.
    *
    * Requirements:
    *
@@ -145,10 +145,10 @@ contract ERC20 is Context, IERC20 {
   }
 
   /**
-   * @dev See {IERC20-transferFrom}.
+   * @dev See {IVIP180-transferFrom}.
    *
    * Emits an {Approval} event indicating the updated allowance. This is not
-   * required by the EIP. See the note at the beginning of {ERC20};
+   * required by the EIP. See the note at the beginning of {VIP180};
    *
    * Requirements:
    * - `sender` and `recipient` cannot be the zero address.
@@ -165,7 +165,7 @@ contract ERC20 is Context, IERC20 {
     _approve(
       sender,
       _msgSender(),
-      _allowances[sender][_msgSender()].sub(amount, 'ERC20: transfer amount exceeds allowance')
+      _allowances[sender][_msgSender()].sub(amount, 'VIP180: transfer amount exceeds allowance')
     );
     return true;
   }
@@ -174,7 +174,7 @@ contract ERC20 is Context, IERC20 {
    * @dev Atomically increases the allowance granted to `spender` by the caller.
    *
    * This is an alternative to {approve} that can be used as a mitigation for
-   * problems described in {IERC20-approve}.
+   * problems described in {IVIP180-approve}.
    *
    * Emits an {Approval} event indicating the updated allowance.
    *
@@ -191,7 +191,7 @@ contract ERC20 is Context, IERC20 {
    * @dev Atomically decreases the allowance granted to `spender` by the caller.
    *
    * This is an alternative to {approve} that can be used as a mitigation for
-   * problems described in {IERC20-approve}.
+   * problems described in {IVIP180-approve}.
    *
    * Emits an {Approval} event indicating the updated allowance.
    *
@@ -211,7 +211,7 @@ contract ERC20 is Context, IERC20 {
       spender,
       _allowances[_msgSender()][spender].sub(
         subtractedValue,
-        'ERC20: decreased allowance below zero'
+        'VIP180: decreased allowance below zero'
       )
     );
     return true;
@@ -236,12 +236,12 @@ contract ERC20 is Context, IERC20 {
     address recipient,
     uint256 amount
   ) internal virtual {
-    require(sender != address(0), 'ERC20: transfer from the zero address');
-    require(recipient != address(0), 'ERC20: transfer to the zero address');
+    require(sender != address(0), 'VIP180: transfer from the zero address');
+    require(recipient != address(0), 'VIP180: transfer to the zero address');
 
     _beforeTokenTransfer(sender, recipient, amount);
 
-    _balances[sender] = _balances[sender].sub(amount, 'ERC20: transfer amount exceeds balance');
+    _balances[sender] = _balances[sender].sub(amount, 'VIP180: transfer amount exceeds balance');
     _balances[recipient] = _balances[recipient].add(amount);
     emit Transfer(sender, recipient, amount);
   }
@@ -256,7 +256,7 @@ contract ERC20 is Context, IERC20 {
    * - `to` cannot be the zero address.
    */
   function _mint(address account, uint256 amount) internal virtual {
-    require(account != address(0), 'ERC20: mint to the zero address');
+    require(account != address(0), 'VIP180: mint to the zero address');
 
     _beforeTokenTransfer(address(0), account, amount);
 
@@ -277,11 +277,11 @@ contract ERC20 is Context, IERC20 {
    * - `account` must have at least `amount` tokens.
    */
   function _burn(address account, uint256 amount) internal virtual {
-    require(account != address(0), 'ERC20: burn from the zero address');
+    require(account != address(0), 'VIP180: burn from the zero address');
 
     _beforeTokenTransfer(account, address(0), amount);
 
-    _balances[account] = _balances[account].sub(amount, 'ERC20: burn amount exceeds balance');
+    _balances[account] = _balances[account].sub(amount, 'VIP180: burn amount exceeds balance');
     _totalSupply = _totalSupply.sub(amount);
     emit Transfer(account, address(0), amount);
   }
@@ -304,8 +304,8 @@ contract ERC20 is Context, IERC20 {
     address spender,
     uint256 amount
   ) internal virtual {
-    require(owner != address(0), 'ERC20: approve from the zero address');
-    require(spender != address(0), 'ERC20: approve to the zero address');
+    require(owner != address(0), 'VIP180: approve from the zero address');
+    require(spender != address(0), 'VIP180: approve to the zero address');
 
     _allowances[owner][spender] = amount;
     emit Approval(owner, spender, amount);

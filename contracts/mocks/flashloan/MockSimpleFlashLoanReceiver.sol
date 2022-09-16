@@ -2,15 +2,15 @@
 pragma solidity 0.8.10;
 
 import {SafeMath} from '../../dependencies/openzeppelin/contracts/SafeMath.sol';
-import {IERC20} from '../../dependencies/openzeppelin/contracts/IERC20.sol';
-import {GPv2SafeERC20} from '../../dependencies/gnosis/contracts/GPv2SafeERC20.sol';
+import {IVIP180} from '../../dependencies/openzeppelin/contracts/IVIP180.sol';
+import {GPv2SafeVIP180} from '../../dependencies/gnosis/contracts/GPv2SafeVIP180.sol';
 import {SafeMath} from '../../dependencies/openzeppelin/contracts/SafeMath.sol';
 import {IPoolAddressesProvider} from '../../interfaces/IPoolAddressesProvider.sol';
 import {FlashLoanSimpleReceiverBase} from '../../flashloan/base/FlashLoanSimpleReceiverBase.sol';
-import {MintableERC20} from '../tokens/MintableERC20.sol';
+import {MintableVIP180} from '../tokens/MintableVIP180.sol';
 
 contract MockFlashLoanSimpleReceiver is FlashLoanSimpleReceiverBase {
-  using GPv2SafeERC20 for IERC20;
+  using GPv2SafeVIP180 for IVIP180;
   using SafeMath for uint256;
 
   event ExecutedWithFail(address asset, uint256 amount, uint256 premium);
@@ -55,17 +55,17 @@ contract MockFlashLoanSimpleReceiver is FlashLoanSimpleReceiverBase {
     }
 
     //mint to this contract the specific amount
-    MintableERC20 token = MintableERC20(asset);
+    MintableVIP180 token = MintableVIP180(asset);
 
     //check the contract has the specified balance
-    require(amount <= IERC20(asset).balanceOf(address(this)), 'Invalid balance for the contract');
+    require(amount <= IVIP180(asset).balanceOf(address(this)), 'Invalid balance for the contract');
 
     uint256 amountToReturn = (_amountToApprove != 0) ? _amountToApprove : amount.add(premium);
     //execution does not fail - mint tokens and return them to the _destination
 
     token.mint(premium);
 
-    IERC20(asset).approve(address(POOL), amountToReturn);
+    IVIP180(asset).approve(address(POOL), amountToReturn);
 
     emit ExecutedWithSuccess(asset, amount, premium);
 

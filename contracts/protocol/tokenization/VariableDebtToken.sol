@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity 0.8.10;
 
-import {IERC20} from '../../dependencies/openzeppelin/contracts/IERC20.sol';
+import {IVIP180} from '../../dependencies/openzeppelin/contracts/IVIP180.sol';
 import {SafeCast} from '../../dependencies/openzeppelin/contracts/SafeCast.sol';
 import {VersionedInitializable} from '../libraries/vebank-upgradeability/VersionedInitializable.sol';
 import {WadRayMath} from '../libraries/math/WadRayMath.sol';
@@ -74,7 +74,7 @@ contract VariableDebtToken is DebtTokenBase, ScaledBalanceTokenBase, IVariableDe
     return DEBT_TOKEN_REVISION;
   }
 
-  /// @inheritdoc IERC20
+  /// @inheritdoc IVIP180
   function balanceOf(address user) public view virtual override returns (uint256) {
     uint256 scaledBalance = super.balanceOf(user);
 
@@ -108,7 +108,7 @@ contract VariableDebtToken is DebtTokenBase, ScaledBalanceTokenBase, IVariableDe
     return scaledTotalSupply();
   }
 
-  /// @inheritdoc IERC20
+  /// @inheritdoc IVIP180
   function totalSupply() public view virtual override returns (uint256) {
     return super.totalSupply().rayMul(POOL.getReserveNormalizedVariableDebt(_underlyingAsset));
   }
@@ -120,7 +120,7 @@ contract VariableDebtToken is DebtTokenBase, ScaledBalanceTokenBase, IVariableDe
 
   /**
    * @dev Being non transferrable, the debt token does not implement any of the
-   * standard ERC20 functions for transfer and allowance.
+   * standard VIP180 functions for transfer and allowance.
    **/
   function transfer(address, uint256) external virtual override returns (bool) {
     revert(Errors.OPERATION_NOT_SUPPORTED);

@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity 0.8.10;
 
-import {IERC20} from '../../../dependencies/openzeppelin/contracts/IERC20.sol';
-import {GPv2SafeERC20} from '../../../dependencies/gnosis/contracts/GPv2SafeERC20.sol';
+import {IVIP180} from '../../../dependencies/openzeppelin/contracts/IVIP180.sol';
+import {GPv2SafeVIP180} from '../../../dependencies/gnosis/contracts/GPv2SafeVIP180.sol';
 import {SafeCast} from '../../../dependencies/openzeppelin/contracts/SafeCast.sol';
 import {IAToken} from '../../../interfaces/IAToken.sol';
 import {DataTypes} from '../types/DataTypes.sol';
@@ -22,7 +22,7 @@ library BridgeLogic {
   using WadRayMath for uint256;
   using PercentageMath for uint256;
   using SafeCast for uint256;
-  using GPv2SafeERC20 for IERC20;
+  using GPv2SafeVIP180 for IVIP180;
 
   // See `IPool` for descriptions
   event ReserveUsedAsCollateralEnabled(address indexed reserve, address indexed user);
@@ -125,7 +125,7 @@ library BridgeLogic {
     uint256 added = backingAmount + fee;
 
     reserveCache.nextLiquidityIndex = reserve.cumulateToLiquidityIndex(
-      IERC20(reserveCache.aTokenAddress).totalSupply(),
+      IVIP180(reserveCache.aTokenAddress).totalSupply(),
       feeToLP
     );
 
@@ -134,7 +134,7 @@ library BridgeLogic {
     reserve.unbacked -= backingAmount.toUint128();
     reserve.updateInterestRates(reserveCache, asset, added, 0);
 
-    IERC20(asset).safeTransferFrom(msg.sender, reserveCache.aTokenAddress, added);
+    IVIP180(asset).safeTransferFrom(msg.sender, reserveCache.aTokenAddress, added);
 
     emit BackUnbacked(asset, msg.sender, backingAmount, fee);
   }

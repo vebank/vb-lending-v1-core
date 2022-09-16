@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: AGPL-3.0
 pragma solidity 0.8.10;
 
-import {IERC20} from '../dependencies/openzeppelin/contracts/IERC20.sol';
+import {IVIP180} from '../dependencies/openzeppelin/contracts/IVIP180.sol';
 
 /**
- * @title IERC20WithPermit
+ * @title IVIP180WithPermit
  * @author VeBank
  * @notice Interface for the permit function (EIP-2612)
  **/
-interface IERC20WithPermit is IERC20 {
+interface IVIP180WithPermit is IVIP180 {
   /**
    * @notice Allow passing a signed message to approve spending
    * @dev implements the permit function as for

@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity 0.8.10;
 
-import {GPv2SafeERC20} from '../../../dependencies/gnosis/contracts/GPv2SafeERC20.sol';
+import {GPv2SafeVIP180} from '../../../dependencies/gnosis/contracts/GPv2SafeVIP180.sol';
 import {SafeCast} from '../../../dependencies/openzeppelin/contracts/SafeCast.sol';
-import {IERC20} from '../../../dependencies/openzeppelin/contracts/IERC20.sol';
+import {IVIP180} from '../../../dependencies/openzeppelin/contracts/IVIP180.sol';
 import {IStableDebtToken} from '../../../interfaces/IStableDebtToken.sol';
 import {IVariableDebtToken} from '../../../interfaces/IVariableDebtToken.sol';
 import {IAToken} from '../../../interfaces/IAToken.sol';
@@ -23,7 +23,7 @@ import {IsolationModeLogic} from './IsolationModeLogic.sol';
 library BorrowLogic {
   using ReserveLogic for DataTypes.ReserveCache;
   using ReserveLogic for DataTypes.ReserveData;
-  using GPv2SafeERC20 for IERC20;
+  using GPv2SafeVIP180 for IVIP180;
   using UserConfiguration for DataTypes.UserConfigurationMap;
   using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
   using SafeCast for uint256;
@@ -251,7 +251,7 @@ library BorrowLogic {
         reserveCache.nextLiquidityIndex
       );
     } else {
-      IERC20(params.asset).safeTransferFrom(msg.sender, reserveCache.aTokenAddress, paybackAmount);
+      IVIP180(params.asset).safeTransferFrom(msg.sender, reserveCache.aTokenAddress, paybackAmount);
       IAToken(reserveCache.aTokenAddress).handleRepayment(msg.sender, paybackAmount);
     }
 
@@ -280,7 +280,7 @@ library BorrowLogic {
     ValidationLogic.validateRebalanceStableBorrowRate(reserve, reserveCache, asset);
 
     IStableDebtToken stableDebtToken = IStableDebtToken(reserveCache.stableDebtTokenAddress);
-    uint256 stableDebt = IERC20(address(stableDebtToken)).balanceOf(user);
+    uint256 stableDebt = IVIP180(address(stableDebtToken)).balanceOf(user);
 
     stableDebtToken.burn(user, stableDebt);
 

@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity 0.8.10;
 
-import {IERC20} from '../../dependencies/openzeppelin/contracts/IERC20.sol';
-import {GPv2SafeERC20} from '../../dependencies/gnosis/contracts/GPv2SafeERC20.sol';
+import {IVIP180} from '../../dependencies/openzeppelin/contracts/IVIP180.sol';
+import {GPv2SafeVIP180} from '../../dependencies/gnosis/contracts/GPv2SafeVIP180.sol';
 import {IPoolAddressesProvider} from '../../interfaces/IPoolAddressesProvider.sol';
 import {FlashLoanReceiverBase} from '../../flashloan/base/FlashLoanReceiverBase.sol';
-import {MintableERC20} from '../tokens/MintableERC20.sol';
+import {MintableVIP180} from '../tokens/MintableVIP180.sol';
 
 contract MockFlashLoanReceiver is FlashLoanReceiverBase {
-  using GPv2SafeERC20 for IERC20;
+  using GPv2SafeVIP180 for IVIP180;
 
   event ExecutedWithFail(address[] _assets, uint256[] _amounts, uint256[] _premiums);
   event ExecutedWithSuccess(address[] _assets, uint256[] _amounts, uint256[] _premiums);
@@ -53,11 +53,11 @@ contract MockFlashLoanReceiver is FlashLoanReceiverBase {
 
     for (uint256 i = 0; i < assets.length; i++) {
       //mint to this contract the specific amount
-      MintableERC20 token = MintableERC20(assets[i]);
+      MintableVIP180 token = MintableVIP180(assets[i]);
 
       //check the contract has the specified balance
       require(
-        amounts[i] <= IERC20(assets[i]).balanceOf(address(this)),
+        amounts[i] <= IVIP180(assets[i]).balanceOf(address(this)),
         'Invalid balance for the contract'
       );
 
@@ -68,7 +68,7 @@ contract MockFlashLoanReceiver is FlashLoanReceiverBase {
 
       token.mint(premiums[i]);
 
-      IERC20(assets[i]).approve(address(POOL), amountToReturn);
+      IVIP180(assets[i]).approve(address(POOL), amountToReturn);
     }
 
     emit ExecutedWithSuccess(assets, amounts, premiums);

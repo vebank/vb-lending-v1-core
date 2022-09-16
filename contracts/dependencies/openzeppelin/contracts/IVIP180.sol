@@ -2,9 +2,9 @@
 pragma solidity 0.8.10;
 
 /**
- * @dev Interface of the ERC20 standard as defined in the EIP.
+ * @dev Interface of the VIP180 standard as defined in the EIP.
  */
-interface IERC20 {
+interface IVIP180 {
   /**
    * @dev Returns the amount of tokens in existence.
    */

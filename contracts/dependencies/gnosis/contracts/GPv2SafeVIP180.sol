@@ -1,16 +1,16 @@
 // SPDX-License-Identifier: LGPL-3.0-or-later
 pragma solidity 0.8.10;
 
-import {IERC20} from '../../openzeppelin/contracts/IERC20.sol';
+import {IVIP180} from '../../openzeppelin/contracts/IVIP180.sol';
 
-/// @title Gnosis Protocol v2 Safe ERC20 Transfer Library
+/// @title Gnosis Protocol v2 Safe VIP180 Transfer Library
 /// @author Gnosis Developers
-/// @dev Gas-efficient version of Openzeppelin's SafeERC20 contract.
-library GPv2SafeERC20 {
-  /// @dev Wrapper around a call to the ERC20 function `transfer` that reverts
+/// @dev Gas-efficient version of Openzeppelin's SafeVIP180 contract.
+library GPv2SafeVIP180 {
+  /// @dev Wrapper around a call to the VIP180 function `transfer` that reverts
   /// also when the token returns `false`.
   function safeTransfer(
-    IERC20 token,
+    IVIP180 token,
     address to,
     uint256 value
   ) internal {
@@ -32,10 +32,10 @@ library GPv2SafeERC20 {
     require(getLastTransferResult(token), 'GPv2: failed transfer');
   }
 
-  /// @dev Wrapper around a call to the ERC20 function `transferFrom` that
+  /// @dev Wrapper around a call to the VIP180 function `transferFrom` that
   /// reverts also when the token returns `false`.
   function safeTransferFrom(
-    IERC20 token,
+    IVIP180 token,
     address from,
     address to,
     uint256 value
@@ -62,7 +62,7 @@ library GPv2SafeERC20 {
   /// @dev Verifies that the last return was a successful `transfer*` call.
   /// This is done by checking that the return data is either empty, or
   /// is a valid ABI encoded boolean.
-  function getLastTransferResult(IERC20 token) private view returns (bool success) {
+  function getLastTransferResult(IVIP180 token) private view returns (bool success) {
     // NOTE: Inspecting previous return data requires assembly. Note that
     // we write the return data to memory 0 in the case where the return
     // data size is 32, this is OK since the first 64 bytes of memory are
@@ -92,7 +92,7 @@ library GPv2SafeERC20 {
       }
 
       switch returndatasize()
-      // Non-standard ERC20 transfer without return.
+      // Non-standard VIP180 transfer without return.
       case 0 {
         // NOTE: When the return data size is 0, verify that there
         // is code at the address. This is done in order to maintain
@@ -104,14 +104,14 @@ library GPv2SafeERC20 {
 
         success := 1
       }
-      // Standard ERC20 transfer returning boolean success value.
+      // Standard VIP180 transfer returning boolean success value.
       case 32 {
         returndatacopy(0, 0, returndatasize())
 
         // NOTE: For ABI encoding v1, any non-zero value is accepted
         // as `true` for a boolean. In order to stay compatible with
-        // OpenZeppelin's `SafeERC20` library which is known to work
-        // with the existing ERC20 implementation we care about,
+        // OpenZeppelin's `SafeVIP180` library which is known to work
+        // with the existing VIP180 implementation we care about,
         // make sure we return success for any non-zero return value
         // from the `transfer*` call.
         success := iszero(iszero(mload(0)))

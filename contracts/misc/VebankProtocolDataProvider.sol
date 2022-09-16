@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity 0.8.10;
 
-import {IERC20Detailed} from '../dependencies/openzeppelin/contracts/IERC20Detailed.sol';
+import {IVIP180Detailed} from '../dependencies/openzeppelin/contracts/IVIP180Detailed.sol';
 import {ReserveConfiguration} from '../protocol/libraries/configuration/ReserveConfiguration.sol';
 import {UserConfiguration} from '../protocol/libraries/configuration/UserConfiguration.sol';
 import {DataTypes} from '../protocol/libraries/types/DataTypes.sol';
@@ -55,7 +55,7 @@ contract VeBankProtocolDataProvider is IPoolDataProvider {
         continue;
       }
       reservesTokens[i] = TokenData({
-        symbol: IERC20Detailed(reserves[i]).symbol(),
+        symbol: IVIP180Detailed(reserves[i]).symbol(),
         tokenAddress: reserves[i]
       });
     }
@@ -73,7 +73,7 @@ contract VeBankProtocolDataProvider is IPoolDataProvider {
     for (uint256 i = 0; i < reserves.length; i++) {
       DataTypes.ReserveData memory reserveData = pool.getReserveData(reserves[i]);
       aTokens[i] = TokenData({
-        symbol: IERC20Detailed(reserveData.aTokenAddress).symbol(),
+        symbol: IVIP180Detailed(reserveData.aTokenAddress).symbol(),
         tokenAddress: reserveData.aTokenAddress
       });
     }
@@ -242,9 +242,9 @@ contract VeBankProtocolDataProvider is IPoolDataProvider {
     return (
       reserve.unbacked,
       reserve.accruedToTreasury,
-      IERC20Detailed(reserve.aTokenAddress).totalSupply(),
-      IERC20Detailed(reserve.stableDebtTokenAddress).totalSupply(),
-      IERC20Detailed(reserve.variableDebtTokenAddress).totalSupply(),
+      IVIP180Detailed(reserve.aTokenAddress).totalSupply(),
+      IVIP180Detailed(reserve.stableDebtTokenAddress).totalSupply(),
+      IVIP180Detailed(reserve.variableDebtTokenAddress).totalSupply(),
       reserve.currentLiquidityRate,
       reserve.currentVariableBorrowRate,
       reserve.currentStableBorrowRate,
@@ -264,7 +264,7 @@ contract VeBankProtocolDataProvider is IPoolDataProvider {
     DataTypes.ReserveData memory reserve = IPool(ADDRESSES_PROVIDER.getPool()).getReserveData(
       asset
     );
-    return IERC20Detailed(reserve.aTokenAddress).totalSupply();
+    return IVIP180Detailed(reserve.aTokenAddress).totalSupply();
   }
 
   /**
@@ -277,8 +277,8 @@ contract VeBankProtocolDataProvider is IPoolDataProvider {
       asset
     );
     return
-      IERC20Detailed(reserve.stableDebtTokenAddress).totalSupply() +
-      IERC20Detailed(reserve.variableDebtTokenAddress).totalSupply();
+      IVIP180Detailed(reserve.stableDebtTokenAddress).totalSupply() +
+      IVIP180Detailed(reserve.variableDebtTokenAddress).totalSupply();
   }
 
   /**
@@ -318,9 +318,9 @@ contract VeBankProtocolDataProvider is IPoolDataProvider {
     DataTypes.UserConfigurationMap memory userConfig = IPool(ADDRESSES_PROVIDER.getPool())
       .getUserConfiguration(user);
 
-    currentATokenBalance = IERC20Detailed(reserve.aTokenAddress).balanceOf(user);
-    currentVariableDebt = IERC20Detailed(reserve.variableDebtTokenAddress).balanceOf(user);
-    currentStableDebt = IERC20Detailed(reserve.stableDebtTokenAddress).balanceOf(user);
+    currentATokenBalance = IVIP180Detailed(reserve.aTokenAddress).balanceOf(user);
+    currentVariableDebt = IVIP180Detailed(reserve.variableDebtTokenAddress).balanceOf(user);
+    currentStableDebt = IVIP180Detailed(reserve.stableDebtTokenAddress).balanceOf(user);
     principalStableDebt = IStableDebtToken(reserve.stableDebtTokenAddress).principalBalanceOf(user);
     scaledVariableDebt = IVariableDebtToken(reserve.variableDebtTokenAddress).scaledBalanceOf(user);
     liquidityRate = reserve.currentLiquidityRate;

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity 0.8.10;
 
-import {IERC20} from '../../dependencies/openzeppelin/contracts/IERC20.sol';
+import {IVIP180} from '../../dependencies/openzeppelin/contracts/IVIP180.sol';
 import {VersionedInitializable} from '../libraries/vebank-upgradeability/VersionedInitializable.sol';
 import {MathUtils} from '../libraries/math/MathUtils.sol';
 import {WadRayMath} from '../libraries/math/WadRayMath.sol';
@@ -12,7 +12,7 @@ import {IStableDebtToken} from '../../interfaces/IStableDebtToken.sol';
 import {IPool} from '../../interfaces/IPool.sol';
 import {EIP712Base} from './base/EIP712Base.sol';
 import {DebtTokenBase} from './base/DebtTokenBase.sol';
-import {IncentivizedERC20} from './base/IncentivizedERC20.sol';
+import {IncentivizedVIP180} from './base/IncentivizedVIP180.sol';
 import {SafeCast} from '../../dependencies/openzeppelin/contracts/SafeCast.sol';
 
 /**
@@ -22,7 +22,7 @@ import {SafeCast} from '../../dependencies/openzeppelin/contracts/SafeCast.sol';
  * at stable rate mode
  * @dev Transfer and approve functionalities are disabled since its a non-transferable token
  **/
-contract StableDebtToken is DebtTokenBase, IncentivizedERC20, IStableDebtToken {
+contract StableDebtToken is DebtTokenBase, IncentivizedVIP180, IStableDebtToken {
   using WadRayMath for uint256;
   using SafeCast for uint256;
 
@@ -42,7 +42,7 @@ contract StableDebtToken is DebtTokenBase, IncentivizedERC20, IStableDebtToken {
    */
   constructor(IPool pool)
     DebtTokenBase()
-    IncentivizedERC20(pool, 'STABLE_DEBT_TOKEN_IMPL', 'STABLE_DEBT_TOKEN_IMPL', 0)
+    IncentivizedVIP180(pool, 'STABLE_DEBT_TOKEN_IMPL', 'STABLE_DEBT_TOKEN_IMPL', 0)
   {
     // Intentionally left blank
   }
@@ -98,7 +98,7 @@ contract StableDebtToken is DebtTokenBase, IncentivizedERC20, IStableDebtToken {
     return _userState[user].additionalData;
   }
 
-  /// @inheritdoc IERC20
+  /// @inheritdoc IVIP180
   function balanceOf(address account) public view virtual override returns (uint256) {
     uint256 accountBalance = super.balanceOf(account);
     uint256 stableRate = _userState[account].additionalData;
@@ -311,7 +311,7 @@ contract StableDebtToken is DebtTokenBase, IncentivizedERC20, IStableDebtToken {
     return (_calcTotalSupply(avgRate), avgRate);
   }
 
-  /// @inheritdoc IERC20
+  /// @inheritdoc IVIP180
   function totalSupply() public view virtual override returns (uint256) {
     return _calcTotalSupply(_avgStableRate);
   }
@@ -398,7 +398,7 @@ contract StableDebtToken is DebtTokenBase, IncentivizedERC20, IStableDebtToken {
 
   /**
    * @dev Being non transferrable, the debt token does not implement any of the
-   * standard ERC20 functions for transfer and allowance.
+   * standard VIP180 functions for transfer and allowance.
    **/
   function transfer(address, uint256) external virtual override returns (bool) {
     revert(Errors.OPERATION_NOT_SUPPORTED);

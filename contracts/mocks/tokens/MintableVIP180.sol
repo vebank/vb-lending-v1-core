@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity 0.8.10;
 
-import {ERC20} from '../../dependencies/openzeppelin/contracts/ERC20.sol';
-import {IERC20WithPermit} from '../../interfaces/IERC20WithPermit.sol';
+import {VIP180} from '../../dependencies/openzeppelin/contracts/VIP180.sol';
+import {IVIP180WithPermit} from '../../interfaces/IVIP180WithPermit.sol';
 
 /**
- * @title ERC20Mintable
- * @dev ERC20 minting logic
+ * @title VIP180Mintable
+ * @dev VIP180 minting logic
  */
-contract MintableERC20 is IERC20WithPermit, ERC20 {
+contract MintableVIP180 is IVIP180WithPermit, VIP180 {
   bytes public constant EIP712_REVISION = bytes('1');
   bytes32 internal constant EIP712_DOMAIN =
     keccak256('EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)');
@@ -24,7 +24,7 @@ contract MintableERC20 is IERC20WithPermit, ERC20 {
     string memory name,
     string memory symbol,
     uint8 decimals
-  ) ERC20(name, symbol) {
+  ) VIP180(name, symbol) {
     uint256 chainId = block.chainid;
 
     DOMAIN_SEPARATOR = keccak256(
@@ -39,7 +39,7 @@ contract MintableERC20 is IERC20WithPermit, ERC20 {
     _setupDecimals(decimals);
   }
 
-  /// @inheritdoc IERC20WithPermit
+  /// @inheritdoc IVIP180WithPermit
   function permit(
     address owner,
     address spender,

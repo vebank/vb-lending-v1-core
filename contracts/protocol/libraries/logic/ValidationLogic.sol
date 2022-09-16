@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity 0.8.10;
 
-import {IERC20} from '../../../dependencies/openzeppelin/contracts/IERC20.sol';
+import {IVIP180} from '../../../dependencies/openzeppelin/contracts/IVIP180.sol';
 import {Address} from '../../../dependencies/openzeppelin/contracts/Address.sol';
-import {GPv2SafeERC20} from '../../../dependencies/gnosis/contracts/GPv2SafeERC20.sol';
+import {GPv2SafeVIP180} from '../../../dependencies/gnosis/contracts/GPv2SafeVIP180.sol';
 import {IReserveInterestRateStrategy} from '../../../interfaces/IReserveInterestRateStrategy.sol';
 import {IStableDebtToken} from '../../../interfaces/IStableDebtToken.sol';
 import {IScaledBalanceToken} from '../../../interfaces/IScaledBalanceToken.sol';
@@ -30,7 +30,7 @@ library ValidationLogic {
   using WadRayMath for uint256;
   using PercentageMath for uint256;
   using SafeCast for uint256;
-  using GPv2SafeERC20 for IERC20;
+  using GPv2SafeVIP180 for IVIP180;
   using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
   using UserConfiguration for DataTypes.UserConfigurationMap;
   using Address for address;
@@ -268,11 +268,11 @@ library ValidationLogic {
       require(
         !params.userConfig.isUsingAsCollateral(reservesData[params.asset].id) ||
           params.reserveCache.reserveConfiguration.getLtv() == 0 ||
-          params.amount > IERC20(params.reserveCache.aTokenAddress).balanceOf(params.userAddress),
+          params.amount > IVIP180(params.reserveCache.aTokenAddress).balanceOf(params.userAddress),
         Errors.COLLATERAL_SAME_AS_BORROWING_CURRENCY
       );
 
-      vars.availableLiquidity = IERC20(params.asset).balanceOf(params.reserveCache.aTokenAddress);
+      vars.availableLiquidity = IVIP180(params.asset).balanceOf(params.reserveCache.aTokenAddress);
 
       //calculate the max available loan size in stable rate mode as a percentage of the
       //available liquidity
@@ -385,7 +385,7 @@ library ValidationLogic {
       require(
         !userConfig.isUsingAsCollateral(reserve.id) ||
           reserveCache.reserveConfiguration.getLtv() == 0 ||
-          stableDebt + variableDebt > IERC20(reserveCache.aTokenAddress).balanceOf(msg.sender),
+          stableDebt + variableDebt > IVIP180(reserveCache.aTokenAddress).balanceOf(msg.sender),
         Errors.COLLATERAL_SAME_AS_BORROWING_CURRENCY
       );
     } else {
@@ -410,8 +410,8 @@ library ValidationLogic {
     require(isActive, Errors.RESERVE_INACTIVE);
     require(!isPaused, Errors.RESERVE_PAUSED);
 
-    uint256 totalDebt = IERC20(reserveCache.stableDebtTokenAddress).totalSupply() +
-      IERC20(reserveCache.variableDebtTokenAddress).totalSupply();
+    uint256 totalDebt = IVIP180(reserveCache.stableDebtTokenAddress).totalSupply() +
+      IVIP180(reserveCache.variableDebtTokenAddress).totalSupply();
 
     (uint256 liquidityRateVariableDebtOnly, , ) = IReserveInterestRateStrategy(
       reserve.interestRateStrategyAddress
@@ -642,12 +642,12 @@ library ValidationLogic {
   ) internal view {
     require(asset != address(0), Errors.ZERO_ADDRESS_NOT_VALID);
     require(reserve.id != 0 || reservesList[0] == asset, Errors.ASSET_NOT_LISTED);
-    require(IERC20(reserve.stableDebtTokenAddress).totalSupply() == 0, Errors.STABLE_DEBT_NOT_ZERO);
+    require(IVIP180(reserve.stableDebtTokenAddress).totalSupply() == 0, Errors.STABLE_DEBT_NOT_ZERO);
     require(
-      IERC20(reserve.variableDebtTokenAddress).totalSupply() == 0,
+      IVIP180(reserve.variableDebtTokenAddress).totalSupply() == 0,
       Errors.VARIABLE_DEBT_SUPPLY_NOT_ZERO
     );
-    require(IERC20(reserve.aTokenAddress).totalSupply() == 0, Errors.ATOKEN_SUPPLY_NOT_ZERO);
+    require(IVIP180(reserve.aTokenAddress).totalSupply() == 0, Errors.ATOKEN_SUPPLY_NOT_ZERO);
   }
 
   /**

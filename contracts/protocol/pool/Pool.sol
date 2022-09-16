@@ -13,7 +13,7 @@ import {BorrowLogic} from '../libraries/logic/BorrowLogic.sol';
 import {LiquidationLogic} from '../libraries/logic/LiquidationLogic.sol';
 import {DataTypes} from '../libraries/types/DataTypes.sol';
 import {BridgeLogic} from '../libraries/logic/BridgeLogic.sol';
-import {IERC20WithPermit} from '../../interfaces/IERC20WithPermit.sol';
+import {IVIP180WithPermit} from '../../interfaces/IVIP180WithPermit.sol';
 import {IPoolAddressesProvider} from '../../interfaces/IPoolAddressesProvider.sol';
 import {IPool} from '../../interfaces/IPool.sol';
 import {IACLManager} from '../../interfaces/IACLManager.sol';
@@ -171,7 +171,7 @@ contract Pool is VersionedInitializable, PoolStorage, IPool {
     bytes32 permitR,
     bytes32 permitS
   ) public virtual override {
-    IERC20WithPermit(asset).permit(
+    IVIP180WithPermit(asset).permit(
       msg.sender,
       address(this),
       amount,
@@ -280,7 +280,7 @@ contract Pool is VersionedInitializable, PoolStorage, IPool {
     bytes32 permitS
   ) public virtual override returns (uint256) {
     {
-      IERC20WithPermit(asset).permit(
+      IVIP180WithPermit(asset).permit(
         msg.sender,
         address(this),
         amount,

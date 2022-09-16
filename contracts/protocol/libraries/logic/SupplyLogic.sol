@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity 0.8.10;
 
-import {IERC20} from '../../../dependencies/openzeppelin/contracts/IERC20.sol';
-import {GPv2SafeERC20} from '../../../dependencies/gnosis/contracts/GPv2SafeERC20.sol';
+import {IVIP180} from '../../../dependencies/openzeppelin/contracts/IVIP180.sol';
+import {GPv2SafeVIP180} from '../../../dependencies/gnosis/contracts/GPv2SafeVIP180.sol';
 import {IAToken} from '../../../interfaces/IAToken.sol';
 import {Errors} from '../helpers/Errors.sol';
 import {UserConfiguration} from '../configuration/UserConfiguration.sol';
@@ -21,7 +21,7 @@ import {ReserveConfiguration} from '../configuration/ReserveConfiguration.sol';
 library SupplyLogic {
   using ReserveLogic for DataTypes.ReserveCache;
   using ReserveLogic for DataTypes.ReserveData;
-  using GPv2SafeERC20 for IERC20;
+  using GPv2SafeVIP180 for IVIP180;
   using UserConfiguration for DataTypes.UserConfigurationMap;
   using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
   using WadRayMath for uint256;
@@ -64,7 +64,7 @@ library SupplyLogic {
 
     reserve.updateInterestRates(reserveCache, params.asset, params.amount, 0);
 
-    IERC20(params.asset).safeTransferFrom(msg.sender, reserveCache.aTokenAddress, params.amount);
+    IVIP180(params.asset).safeTransferFrom(msg.sender, reserveCache.aTokenAddress, params.amount);
     bool isFirstSupply = IAToken(reserveCache.aTokenAddress).mint(
       msg.sender,
       params.onBehalfOf,
@@ -256,7 +256,7 @@ library SupplyLogic {
     DataTypes.ReserveData storage reserve = reservesData[asset];
     DataTypes.ReserveCache memory reserveCache = reserve.cache();
 
-    uint256 userBalance = IERC20(reserveCache.aTokenAddress).balanceOf(msg.sender);
+    uint256 userBalance = IVIP180(reserveCache.aTokenAddress).balanceOf(msg.sender);
 
     ValidationLogic.validateSetUseReserveAsCollateral(reserveCache, userBalance);
 

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0
 pragma solidity 0.8.10;
 
-import {IERC20} from '../dependencies/openzeppelin/contracts/IERC20.sol';
+import {IVIP180} from '../dependencies/openzeppelin/contracts/IVIP180.sol';
 import {IScaledBalanceToken} from './IScaledBalanceToken.sol';
 import {IInitializableAToken} from './IInitializableAToken.sol';
 
@@ -10,7 +10,7 @@ import {IInitializableAToken} from './IInitializableAToken.sol';
  * @author VeBank
  * @notice Defines the basic interface for an AToken.
  **/
-interface IAToken is IERC20, IScaledBalanceToken, IInitializableAToken {
+interface IAToken is IVIP180, IScaledBalanceToken, IInitializableAToken {
   /**
    * @dev Emitted during the transfer action
    * @param from The user whose tokens are being transferred
@@ -80,7 +80,7 @@ interface IAToken is IERC20, IScaledBalanceToken, IInitializableAToken {
 
   /**
    * @notice Handles the underlying received by the aToken after the transfer has been completed.
-   * @dev The default implementation is empty as with standard ERC20 tokens, nothing needs to be done after the
+   * @dev The default implementation is empty as with standard VIP180 tokens, nothing needs to be done after the
    * transfer is concluded. However in the future there may be aTokens that allow for example to stake the underlying
    * to receive LM rewards. In that case, `handleRepayment()` would perform the staking of the underlying asset.
    * @param user The user executing the repayment

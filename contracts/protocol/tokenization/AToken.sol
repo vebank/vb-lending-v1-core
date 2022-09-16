@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity 0.8.10;
 
-import {IERC20} from '../../dependencies/openzeppelin/contracts/IERC20.sol';
-import {GPv2SafeERC20} from '../../dependencies/gnosis/contracts/GPv2SafeERC20.sol';
+import {IVIP180} from '../../dependencies/openzeppelin/contracts/IVIP180.sol';
+import {GPv2SafeVIP180} from '../../dependencies/gnosis/contracts/GPv2SafeVIP180.sol';
 import {SafeCast} from '../../dependencies/openzeppelin/contracts/SafeCast.sol';
 import {VersionedInitializable} from '../libraries/vebank-upgradeability/VersionedInitializable.sol';
 import {Errors} from '../libraries/helpers/Errors.sol';
@@ -12,18 +12,18 @@ import {IAToken} from '../../interfaces/IAToken.sol';
 import {IVeBankIncentivesController} from '../../interfaces/IVeBankIncentivesController.sol';
 import {IInitializableAToken} from '../../interfaces/IInitializableAToken.sol';
 import {ScaledBalanceTokenBase} from './base/ScaledBalanceTokenBase.sol';
-import {IncentivizedERC20} from './base/IncentivizedERC20.sol';
+import {IncentivizedVIP180} from './base/IncentivizedVIP180.sol';
 import {EIP712Base} from './base/EIP712Base.sol';
 
 /**
- * @title VeBank ERC20 AToken
+ * @title VeBank VIP180 AToken
  * @author VeBank
  * @notice Implementation of the interest bearing token for the VeBank protocol
  */
 contract AToken is VersionedInitializable, ScaledBalanceTokenBase, EIP712Base, IAToken {
   using WadRayMath for uint256;
   using SafeCast for uint256;
-  using GPv2SafeERC20 for IERC20;
+  using GPv2SafeVIP180 for IVIP180;
 
   bytes32 public constant PERMIT_TYPEHASH =
     keccak256('Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)');
@@ -102,7 +102,7 @@ contract AToken is VersionedInitializable, ScaledBalanceTokenBase, EIP712Base, I
   ) external virtual override onlyPool {
     _burnScaled(from, receiverOfUnderlying, amount, index);
     if (receiverOfUnderlying != address(this)) {
-      IERC20(_underlyingAsset).safeTransfer(receiverOfUnderlying, amount);
+      IVIP180(_underlyingAsset).safeTransfer(receiverOfUnderlying, amount);
     }
   }
 
@@ -127,19 +127,19 @@ contract AToken is VersionedInitializable, ScaledBalanceTokenBase, EIP712Base, I
     emit Transfer(from, to, value);
   }
 
-  /// @inheritdoc IERC20
+  /// @inheritdoc IVIP180
   function balanceOf(address user)
     public
     view
     virtual
-    override(IncentivizedERC20, IERC20)
+    override(IncentivizedVIP180, IVIP180)
     returns (uint256)
   {
     return super.balanceOf(user).rayMul(POOL.getReserveNormalizedIncome(_underlyingAsset));
   }
 
-  /// @inheritdoc IERC20
-  function totalSupply() public view virtual override(IncentivizedERC20, IERC20) returns (uint256) {
+  /// @inheritdoc IVIP180
+  function totalSupply() public view virtual override(IncentivizedVIP180, IVIP180) returns (uint256) {
     uint256 currentSupplyScaled = super.totalSupply();
 
     if (currentSupplyScaled == 0) {
@@ -161,7 +161,7 @@ contract AToken is VersionedInitializable, ScaledBalanceTokenBase, EIP712Base, I
 
   /// @inheritdoc IAToken
   function transferUnderlyingTo(address target, uint256 amount) external virtual override onlyPool {
-    IERC20(_underlyingAsset).safeTransfer(target, amount);
+    IVIP180(_underlyingAsset).safeTransfer(target, amount);
   }
 
   /// @inheritdoc IAToken
@@ -241,7 +241,7 @@ contract AToken is VersionedInitializable, ScaledBalanceTokenBase, EIP712Base, I
 
   /**
    * @dev Overrides the base function to fully implement IAToken
-   * @dev see `IncentivizedERC20.DOMAIN_SEPARATOR()` for more detailed documentation
+   * @dev see `IncentivizedVIP180.DOMAIN_SEPARATOR()` for more detailed documentation
    */
   function DOMAIN_SEPARATOR() public view override(IAToken, EIP712Base) returns (bytes32) {
     return super.DOMAIN_SEPARATOR();
@@ -249,7 +249,7 @@ contract AToken is VersionedInitializable, ScaledBalanceTokenBase, EIP712Base, I
 
   /**
    * @dev Overrides the base function to fully implement IAToken
-   * @dev see `IncentivizedERC20.nonces()` for more detailed documentation
+   * @dev see `IncentivizedVIP180.nonces()` for more detailed documentation
    */
   function nonces(address owner) public view override(IAToken, EIP712Base) returns (uint256) {
     return super.nonces(owner);
@@ -267,6 +267,6 @@ contract AToken is VersionedInitializable, ScaledBalanceTokenBase, EIP712Base, I
     uint256 amount
   ) external override onlyPoolAdmin {
     require(token != _underlyingAsset, Errors.UNDERLYING_CANNOT_BE_RESCUED);
-    IERC20(token).safeTransfer(to, amount);
+    IVIP180(token).safeTransfer(to, amount);
   }
 }

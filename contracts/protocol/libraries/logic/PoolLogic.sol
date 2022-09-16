@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity 0.8.10;
 
-import {GPv2SafeERC20} from '../../../dependencies/gnosis/contracts/GPv2SafeERC20.sol';
+import {GPv2SafeVIP180} from '../../../dependencies/gnosis/contracts/GPv2SafeVIP180.sol';
 import {Address} from '../../../dependencies/openzeppelin/contracts/Address.sol';
-import {IERC20} from '../../../dependencies/openzeppelin/contracts/IERC20.sol';
+import {IVIP180} from '../../../dependencies/openzeppelin/contracts/IVIP180.sol';
 import {IAToken} from '../../../interfaces/IAToken.sol';
 import {ReserveConfiguration} from '../configuration/ReserveConfiguration.sol';
 import {Errors} from '../helpers/Errors.sol';
@@ -19,7 +19,7 @@ import {GenericLogic} from './GenericLogic.sol';
  * @notice Implements the logic for Pool specific functions
  */
 library PoolLogic {
-  using GPv2SafeERC20 for IERC20;
+  using GPv2SafeVIP180 for IVIP180;
   using WadRayMath for uint256;
   using ReserveLogic for DataTypes.ReserveData;
   using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
@@ -77,7 +77,7 @@ library PoolLogic {
     address to,
     uint256 amount
   ) external {
-    IERC20(token).safeTransfer(to, amount);
+    IVIP180(token).safeTransfer(to, amount);
   }
 
   /**

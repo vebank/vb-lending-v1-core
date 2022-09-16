@@ -3,14 +3,14 @@ pragma solidity 0.8.10;
 
 import {IVeBankIncentivesController} from '../../../interfaces/IVeBankIncentivesController.sol';
 import {IPool} from '../../../interfaces/IPool.sol';
-import {IncentivizedERC20} from './IncentivizedERC20.sol';
+import {IncentivizedVIP180} from './IncentivizedVIP180.sol';
 
 /**
- * @title MintableIncentivizedERC20
+ * @title MintableIncentivizedVIP180
  * @author VeBank
- * @notice Implements mint and burn functions for IncentivizedERC20
+ * @notice Implements mint and burn functions for IncentivizedVIP180
  **/
-abstract contract MintableIncentivizedERC20 is IncentivizedERC20 {
+abstract contract MintableIncentivizedVIP180 is IncentivizedVIP180 {
   /**
    * @dev Constructor.
    * @param pool The reference to the main Pool contract
@@ -23,7 +23,7 @@ abstract contract MintableIncentivizedERC20 is IncentivizedERC20 {
     string memory name,
     string memory symbol,
     uint8 decimals
-  ) IncentivizedERC20(pool, name, symbol, decimals) {
+  ) IncentivizedVIP180(pool, name, symbol, decimals) {
     // Intentionally left blank
   }
 

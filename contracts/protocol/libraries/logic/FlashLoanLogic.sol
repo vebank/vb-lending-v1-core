@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity 0.8.10;
 
-import {GPv2SafeERC20} from '../../../dependencies/gnosis/contracts/GPv2SafeERC20.sol';
+import {GPv2SafeVIP180} from '../../../dependencies/gnosis/contracts/GPv2SafeVIP180.sol';
 import {SafeCast} from '../../../dependencies/openzeppelin/contracts/SafeCast.sol';
-import {IERC20} from '../../../dependencies/openzeppelin/contracts/IERC20.sol';
+import {IVIP180} from '../../../dependencies/openzeppelin/contracts/IVIP180.sol';
 import {IAToken} from '../../../interfaces/IAToken.sol';
 import {IFlashLoanReceiver} from '../../../flashloan/interfaces/IFlashLoanReceiver.sol';
 import {IFlashLoanSimpleReceiver} from '../../../flashloan/interfaces/IFlashLoanSimpleReceiver.sol';
@@ -26,7 +26,7 @@ import {ReserveLogic} from './ReserveLogic.sol';
 library FlashLoanLogic {
   using ReserveLogic for DataTypes.ReserveCache;
   using ReserveLogic for DataTypes.ReserveData;
-  using GPv2SafeERC20 for IERC20;
+  using GPv2SafeVIP180 for IVIP180;
   using ReserveConfiguration for DataTypes.ReserveConfigurationMap;
   using WadRayMath for uint256;
   using PercentageMath for uint256;
@@ -231,7 +231,7 @@ library FlashLoanLogic {
     DataTypes.ReserveCache memory reserveCache = reserve.cache();
     reserve.updateState(reserveCache);
     reserveCache.nextLiquidityIndex = reserve.cumulateToLiquidityIndex(
-      IERC20(reserveCache.aTokenAddress).totalSupply(),
+      IVIP180(reserveCache.aTokenAddress).totalSupply(),
       premiumToLP
     );
 
@@ -241,7 +241,7 @@ library FlashLoanLogic {
 
     reserve.updateInterestRates(reserveCache, params.asset, amountPlusPremium, 0);
 
-    IERC20(params.asset).safeTransferFrom(
+    IVIP180(params.asset).safeTransferFrom(
       params.receiverAddress,
       reserveCache.aTokenAddress,
       amountPlusPremium

@@ -6,14 +6,14 @@ import {Errors} from '../../libraries/helpers/Errors.sol';
 import {WadRayMath} from '../../libraries/math/WadRayMath.sol';
 import {IPool} from '../../../interfaces/IPool.sol';
 import {IScaledBalanceToken} from '../../../interfaces/IScaledBalanceToken.sol';
-import {MintableIncentivizedERC20} from './MintableIncentivizedERC20.sol';
+import {MintableIncentivizedVIP180} from './MintableIncentivizedVIP180.sol';
 
 /**
  * @title ScaledBalanceTokenBase
  * @author VeBank
- * @notice Basic ERC20 implementation of scaled balance token
+ * @notice Basic VIP180 implementation of scaled balance token
  **/
-abstract contract ScaledBalanceTokenBase is MintableIncentivizedERC20, IScaledBalanceToken {
+abstract contract ScaledBalanceTokenBase is MintableIncentivizedVIP180, IScaledBalanceToken {
   using WadRayMath for uint256;
   using SafeCast for uint256;
 
@@ -29,7 +29,7 @@ abstract contract ScaledBalanceTokenBase is MintableIncentivizedERC20, IScaledBa
     string memory name,
     string memory symbol,
     uint8 decimals
-  ) MintableIncentivizedERC20(pool, name, symbol, decimals) {
+  ) MintableIncentivizedVIP180(pool, name, symbol, decimals) {
     // Intentionally left blank
   }
 
